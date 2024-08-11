@@ -1,22 +1,35 @@
-﻿namespace CalculatorApp;
+﻿using System;
 
-class Program
+namespace CalculatorApp
 {
-    static void Main(string[] args)
+    class Program
     {
-        Console.WriteLine("Enter the first number:");
-        double num1 = Convert.ToDouble(Console.ReadLine());
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.WriteLine("Enter the first number:");
+                double num1 = ErrorHandling.ReadDoubleInput(Console.ReadLine());
 
-        Console.WriteLine("Enter the second number:");
-        double num2 = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Enter the second number:");
+                double num2 = ErrorHandling.ReadDoubleInput(Console.ReadLine());
 
-        Console.WriteLine("Enter the operation (add, subtract, multiply, divide):");
-        string operation = Console.ReadLine()?.ToLower() ?? string.Empty;
+                Console.WriteLine("Enter the operation (add, subtract, multiply, divide):");
+                string operation = Console.ReadLine()?.ToLower() ?? string.Empty;
 
-        var calculator = new Calculator();    
-        double result = calculator.PerformOperation(num1, num2, operation);
-        Console.WriteLine($"The result is: {result}");
+                var calculator = new Calculator();
+                double result = calculator.PerformOperation(num1, num2, operation);
 
-        Console.WriteLine("Calculation attempt finished.");
+                Console.WriteLine($"The result is: {result}");
+            }
+            catch (Exception ex)
+            {
+                ErrorHandling.HandleException(ex);
+            }
+            finally
+            {
+                Console.WriteLine("Calculation attempt finished.");
+            }
+        }
     }
 }
